@@ -1,7 +1,7 @@
 (macro_invocation
   macro: (_) @_macro_name
   (token_tree) @injection.content
-  (#not-match? @_macro_name "slint|view$")
+  (#not-match? @_macro_name "slint|view$|rsx$|maud$")
   (#set! injection.language "rust_with_rstml")
   (#set! injection.include-children))
 
