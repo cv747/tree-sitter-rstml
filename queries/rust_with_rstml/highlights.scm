@@ -265,7 +265,6 @@
 [
   "async"
   "await"
-  "gen"
 ] @keyword.coroutine
 
 "try" @keyword.exception
