@@ -10082,10 +10082,6 @@
       "members": [
         {
           "type": "STRING",
-          "value": "view"
-        },
-        {
-          "type": "STRING",
           "value": "rsx"
         }
       ]

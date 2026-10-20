@@ -1,8 +1,8 @@
 ==================================
-View macro invocation
+Rsx macro invocation
 ==================================
 
-view! {
+rsx! {
   <div />
 }
 

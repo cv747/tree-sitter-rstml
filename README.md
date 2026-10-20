@@ -23,8 +23,8 @@ Since rstml isn't a supposed to be a standalone language, there are two grammars
     </tr>
     <tr>
         <td>Language</td>
-        <td>This grammar only parses the rstml template without requiring it to be wrapped in a <code>view!</code> macro invocation.</td>
-        <td>This grammar parses an entire rust source file as normal but will parse any <code>view!</code> macro invocations as a rstml template.</td>
+        <td>This grammar only parses the rstml template without requiring it to be wrapped in a <code>rsx!</code> macro invocation.</td>
+        <td>This grammar parses an entire rust source file as normal but will parse any <code>rsx!</code> macro invocations as a rstml template.</td>
     </tr>
     <tr>
         <td>Intended use</td>
@@ -39,7 +39,7 @@ Since rstml isn't a supposed to be a standalone language, there are two grammars
         </td>
         <td>
             <pre lang="rust">
-view! {
+rsx! {
     &lt;div&gt;Hello, world&lt;/div&gt;
 }</pre>
         </td>
@@ -65,7 +65,7 @@ let tree = parser.parse(code, None).unwrap();
 <details><summary>Show code</summary>
 <pre lang="rust">
 let code = r#&quot;
-    view! {
+    rsx! {
         &lt;div&gt;hello, world&lt;/div&gt;
     }
 &quot;#;
@@ -94,7 +94,7 @@ const tree = parser.parse(code)
 <pre lang="js">
 const Parser = require('tree-sitter')
 const code = `
-    view! {
+    rsx! {
         &lt;div&gt;Hello, world&lt;/div&gt;
     }
 `

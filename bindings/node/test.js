@@ -16,7 +16,7 @@ test('rstml binding loads', () => {
 
 test('rust_with_rstml binding loads', () => {
   const code = `
-      view! {
+      rsx! {
           <div>Hello, world</div>
       }
   `

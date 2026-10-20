@@ -15,7 +15,7 @@ This crate exposes two functions:
 
     ```
     let code = r#"
-        view! {
+        rsx! {
             <div>hello, world</div>
         }
     "#;

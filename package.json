@@ -41,7 +41,7 @@
       "scope": "source.rust.rust_with_rstml",
       "path": "rust_with_rstml",
       "file-types": ["rs"],
-      "content-regex": "(view!|rsx!)"
-    }
+      "content-regex": "rsx!"
+		}
   ]
 }
