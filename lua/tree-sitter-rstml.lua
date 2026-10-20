@@ -2,7 +2,7 @@ local M = {}
 
 function M.init()
 	local install_info = {
-		url = "https://github.com/rayliwell/tree-sitter-rstml",
+		url = "https://github.com/cv747/tree-sitter-rstml",
 		branch = "main",
 		files = { "src/parser.c", "src/scanner.c" },
 		location = "rust_with_rstml",
