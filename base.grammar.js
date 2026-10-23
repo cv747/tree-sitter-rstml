@@ -17,7 +17,8 @@ module.exports = {
 
 		_node: $ => choice($._node_except_block, $.block, $._paren_node),
 
-		_paren_node: $ => seq('(', field('value', $.node_identifier), ')'),
+		_paren_node: $ => seq('(', field('value', alias($._expression, $.rust_expression)), ')'),
+	
 
 		_node_except_block: $ =>
 			choice(
