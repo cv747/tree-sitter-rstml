@@ -1520,18 +1520,7 @@
   {
     "type": "delim_nodes",
     "named": true,
-    "fields": {
-      "value": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "node_identifier",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": false,
@@ -1550,6 +1539,10 @@
         },
         {
           "type": "element_node",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
           "named": true
         },
         {
@@ -1635,16 +1628,6 @@
             "named": true
           }
         ]
-      },
-      "value": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "node_identifier",
-            "named": true
-          }
-        ]
       }
     },
     "children": {
@@ -1665,6 +1648,10 @@
         },
         {
           "type": "element_node",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
           "named": true
         },
         {
