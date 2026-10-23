@@ -15,9 +15,7 @@ module.exports = {
 	rules: {
 		...rustGrammar.rules,
 
-		_node: $ => choice($._node_except_block, $.block, $._paren_node),
-
-		_paren_node: $ => seq('(', $._expression, ')'),
+		_node: $ => choice($._node_except_block, $.block, $.parenthesized_expression),
 
 		_node_except_block: $ =>
 			choice(
