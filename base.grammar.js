@@ -8,94 +8,97 @@
 const rustGrammar = require('./rust.grammar.js')
 
 module.exports = {
-  ...rustGrammar,
+	...rustGrammar,
 
-  conflicts: $ => [...rustGrammar.conflicts($)],
+	conflicts: $ => [...rustGrammar.conflicts($)],
 
-  rules: {
-    ...rustGrammar.rules,
+	rules: {
+		...rustGrammar.rules,
 
-    _node: $ => choice($._node_except_block, $.block),
+		_node: $ => choice($._node_except_block, $.block, $._paren_node),
 
-    _node_except_block: $ =>
-      choice(
-        $.element_node,
-        $.self_closing_element_node,
-        $.doctype_node,
-        $.comment_node,
-        $.raw_string_literal,
-        $.string_literal,
-        $.text_node,
-      ),
+		_paren_node: $ => seq('(', field('value', $.node_identifier), ')'),
 
-    doctype_node: $ =>
-      seq(
-        '<!',
-        /[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/,
-        repeat(/./),
-        token(prec(1, '>')),
-      ),
+		_node_except_block: $ =>
+			choice(
+				$.element_node,
+				$.self_closing_element_node,
+				$.doctype_node,
+				$.comment_node,
+				$.raw_string_literal,
+				$.string_literal,
+				$.text_node,
+			),
 
-    comment_node: $ =>
-      seq(
-        '<!--',
-        choice($.raw_string_literal, $.string_literal),
-        token(prec(1, '-->')),
-      ),
+		doctype_node: $ =>
+			seq(
+				'<!',
+				/[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/,
+				repeat(/./),
+				token(prec(1, '>')),
+			),
 
-    self_closing_element_node: $ =>
-      seq(
-        '<',
-        choice(
-          field('name', choice($.node_identifier, $.generic_identifier)),
-          $.block,
-        ),
-        repeat(field('attribute', $._node_attribute)),
-        token(prec(1, '/>')),
-      ),
+		comment_node: $ =>
+			seq(
+				'<!--',
+				choice($.raw_string_literal, $.string_literal),
+				token(prec(1, '-->')),
+			),
 
-    element_node: $ =>
-      seq(
-        field('open_tag', $.open_tag),
-        repeat($._node),
-        field('close_tag', $.close_tag),
-      ),
+		self_closing_element_node: $ =>
+			seq(
+				'<',
+				choice(
+					field('name', choice($.node_identifier, $.generic_identifier)),
+					$.block,
+				),
+				repeat(field('attribute', $._node_attribute)),
+				token(prec(1, '/>')),
+			),
 
-    open_tag: $ =>
-      seq(
-        '<',
-        optional(
-          seq(
-            field('name', $.node_identifier),
-            repeat(field('attribute', $._node_attribute)),
-          ),
-        ),
-        token(prec(1, '>')),
-      ),
+		element_node: $ =>
+			seq(
+				field('open_tag', $.open_tag),
+				repeat($._node),
+				field('close_tag', $.close_tag),
+			),
 
-    close_tag: $ => seq('</', optional(field('name', $.node_identifier)), '>'),
+		open_tag: $ =>
+			seq(
+				'<',
+				optional(
+					seq(
+						field('name', $.node_identifier),
+						repeat(field('attribute', $._node_attribute)),
+					),
+				),
+				token(prec(1, '>')),
+			),
 
-    _node_attribute: $ => choice($.node_identifier, $.node_attribute, $.block),
+		close_tag: $ => seq('</', optional(field('name', $.node_identifier)), '>'),
 
-    node_attribute: $ =>
-      seq(
-        field('name', $.node_identifier),
-        '=',
-        field('value', alias($._expression, $.rust_expression)),
-      ),
+		_node_attribute: $ => choice($.node_identifier, $.node_attribute, $.block),
 
-    node_identifier: $ =>
-      sepBy1(
-        choice(':', '::', '-'),
-        alias($._node_identifier_part, $.identifier),
-      ),
+		node_attribute: $ =>
+			seq(
+				field('name', $.node_identifier),
+				'=',
+				field('value', alias($._expression, $.rust_expression)),
+			),
 
-    generic_identifier: $ => seq($.node_identifier, seq('<', $._type, '>')),
+		node_identifier: $ =>
+			sepBy1(
+				choice(':', '::', '-'),
+				alias($._node_identifier_part, $.identifier),
+			),
 
-    _node_identifier_part: _ => /[\p{XID_Start}_][\p{XID_Continue}_]*/,
+		generic_identifier: $ => seq($.node_identifier, seq('<', $._type, '>')),
 
-    text_node: $ => /[^{}<>"\s]([^{}<>\n"]*[^{}<>"\s])?/,
-  },
+		_node_identifier_part: _ => /[\p{XID_Start}_][\p{XID_Continue}_]*/,
+
+		// text_node: $ => /[^{}<>"\s]([^{}<>\n"]*[^{}<>"\s])?/,
+		text_node: $ => /[^{}<>()"\s]([^{}<>()"\n"]*[^{}<>()"\s])?/,
+	},
 }
 
 /**
@@ -107,5 +110,5 @@ module.exports = {
  * @return {SeqRule}
  */
 function sepBy1(sep, rule) {
-  return seq(rule, repeat(seq(sep, rule)))
+	return seq(rule, repeat(seq(sep, rule)))
 }

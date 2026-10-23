@@ -1520,7 +1520,18 @@
   {
     "type": "delim_nodes",
     "named": true,
-    "fields": {},
+    "fields": {
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "node_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -1621,6 +1632,16 @@
         "types": [
           {
             "type": "open_tag",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "node_identifier",
             "named": true
           }
         ]
