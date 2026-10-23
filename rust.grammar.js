@@ -17,21 +17,21 @@ const fs = require('node:fs')
  * called grammar.
  */
 function extract(code) {
-  'use strict'
+	'use strict'
 
-  /**
-   * This function leaks into the eval context and returns the object
-   * that was used to specify the tree-sitter grammar.
-   */
-  const grammar = x => x
+	/**
+	 * This function leaks into the eval context and returns the object
+	 * that was used to specify the tree-sitter grammar.
+	 */
+	const grammar = x => x
 
-  eval(code)
+	eval(code)
 }
 
 const path = require.resolve('tree-sitter-rust/grammar')
 const file = fs.readFileSync(path, {
-  encoding: 'utf-8',
-  flag: 'r',
+	encoding: 'utf-8',
+	flag: 'r',
 })
 
 extract(file)
