@@ -28,7 +28,7 @@ module.exports = grammar({
         $.delim_nodes,
       ),
 
-    rstml_macro_identifier: _ => choice('rsx'),
+    rstml_macro_identifier: _ => choice('rsx', 'view'),
 
     delim_nodes: $ => seq('{', repeat($._node), '}'),
   },

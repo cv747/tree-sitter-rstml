@@ -10087,6 +10087,10 @@
         {
           "type": "STRING",
           "value": "rsx"
+        },
+        {
+          "type": "STRING",
+          "value": "view"
         }
       ]
     },
