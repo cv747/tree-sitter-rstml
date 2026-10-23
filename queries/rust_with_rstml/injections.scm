@@ -8,6 +8,13 @@
 (macro_invocation
   macro: (_) @_macro_name
   (token_tree) @injection.content
+  (#not-match? @_macro_name "slint|view")
+  (#set! injection.language "rust_with_rstml")
+  (#set! injection.include-children))
+
+(macro_invocation
+  macro: (_) @_macro_name
+  (token_tree) @injection.content
   (#match? @_macro_name "slint$")
   (#offset! @injection.content 0 1 0 -1)
   (#set! injection.language "slint")
